@@ -14,6 +14,9 @@ add_executable(demo1 demo1.cc)
 target_link_libraries(demo1 PRIVATE GTest::gtest GTest::gtest_main GTest::gmock GTest::gmock_main)
 add_test(demo1-test demo1)
 
+add_executable(seqList1 sequentialList.cc)
+add_test(test-demo seqList1)
+
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
