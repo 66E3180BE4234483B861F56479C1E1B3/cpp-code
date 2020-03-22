@@ -1,5 +1,5 @@
-#ifndef DEMO_SEQLIST_V0_2_H
-#define DEMO_SEQLIST_V0_2_H
+#ifndef DEMO_SEQLISTV1_0_H
+#define DEMO_SEQLISTV1_0_H
 
 #include <iostream>
 #include <functional>
@@ -174,4 +174,4 @@ public:
     }
 };
 
-#endif //DEMO_SEQLIST_V0_2_H
+#endif //DEMO_SEQLISTV1_0_H

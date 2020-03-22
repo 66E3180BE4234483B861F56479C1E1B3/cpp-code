@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "seqList-v0.2.h"
+#include "seqListv1.0.h"
 #include "gtest/gtest.h"
 
 TEST(Suite1, Test1)
