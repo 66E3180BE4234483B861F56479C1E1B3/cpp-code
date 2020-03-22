@@ -1,22 +1,25 @@
 #include <iostream>
 
-#include "gtest/gtest.h"
 #include "seqList-v0.2.h"
+#include "gtest/gtest.h"
 
-TEST(Suite1, Test1) {
-    SeqList<int> seqList(3);
-    const int N = 3;
+TEST(Suite1, Test1)
+{
+    const int N = 7;
+    SeqList<int> list(N);
 
-    for (int i = 0; i < N; i++) {
-        seqList.insert(i + 1);
-    }
+    for (int i = 0; i < N; i++)
+        list.insert(i, i + 1);
 
-    int n = 1;
-    for (int d : seqList) {
-        EXPECT_EQ(d, n);
+    EXPECT_EQ(list.isEmpty(), false);
+
+    int n = 0;
+    for (int data : list) {
         n++;
+        EXPECT_EQ(data, n);
     }
-    EXPECT_EQ(n, N + 1);
+
+    EXPECT_EQ(n, N);
 }
 
 template <typename T>
@@ -26,21 +29,6 @@ void func(T n)
 }
 
 int main(int argc, char **argv) {
-    SeqList<char> l(10);
-    for (int i = 0; i < 12; i++)
-        l.insert(i + 'a');
-    l.traversal([] (char d) {std::cout << d << " ";});
-    std::cout << std::endl;
-
-    for (int i = 0; i < 12; i++)
-        std::cout << l.remove(0) << " ";
-    std::cout << std::endl;
-
-    for (int i = 0; i < 12; i++)
-        l.insert(i, i + 'a');
-    l.traversal(func<char>);
-    std::cout << std::endl;
-
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }

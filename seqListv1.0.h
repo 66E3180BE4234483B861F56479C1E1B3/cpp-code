@@ -1,39 +1,35 @@
 #ifndef DEMO_SEQLIST_V0_2_H
 #define DEMO_SEQLIST_V0_2_H
 
-#include <functional>
 #include <iostream>
+#include <functional>
 
-template <typename DadaType>
+template <typename DataType>
 class SeqList {
 private:
-    DadaType* arr;
-    int size, length;
+    DataType* arr;
+    int size, capacity;
 
 public:
-    SeqList(int len = 10) : size(0), length(len), arr(new DadaType[len]) {}
+    SeqList(int len = 10) : size(0), capacity(len), arr(new DataType[len]) {}
 
-    bool insert(const int index, const DadaType data)
+    void insert(const int index, const DataType data)
     {
-        if (index < 0 || index >= length || size == length)
-            return false;
+        if (index < 0 || index >= capacity || size >= capacity)
+            exit(1);
 
         size++;
 
-        int num = index;
-        while (num < size) {
-            arr[size + 1 - num] = arr[size - num];
-            num++;
+        for (int i = size; i != index; i--) {
+            arr[i] = arr[i - 1];
         }
 
         arr[index] = data;
-
-        return true;
     }
 
-    bool insert(DadaType data)
+    bool insert(DataType data)
     {
-        if (size == length)
+        if (size >= capacity)
             return false;
 
         arr[size++] = data;
@@ -41,13 +37,13 @@ public:
         return true;
     }
 
-    DadaType remove(const int index)
+    DataType remove(const int index)
     {
-        if (index < 0 || index >= length || size == 0)
+        if (index < 0 || index >= capacity || size == 0)
             return false;
 
         int num = index;
-        DadaType data_index = arr[index];
+        DataType data_index = arr[index];
         while (0 == num || num < size - 1) {
             arr[num] = arr[num + 1];
             num++;
@@ -58,15 +54,60 @@ public:
         return data_index;
     }
 
-    void traversal(std::function<void(DadaType)> visit)
+    void traversal(std::function<void(DataType)> visit)
     {
         for (SeqList::iterator iter = begin(); iter != end(); iter++)
             visit(*iter);
     }
 
-    DadaType operator[] (const int index) const
+    DataType operator[] (const int index) const
     {
         return arr[index];
+    }
+
+    bool isEmpty()
+    {
+        return size == 0;
+    }
+
+    DataType get(int index) const
+    {
+        if (index < 0 || index >= capacity)
+            return false;
+
+        return arr[index];
+    }
+
+    bool set(int index, DataType data)
+    {
+        if (index < 0 || index >= capacity)
+            return false;
+
+        arr[index] = data;
+
+        return true;
+    }
+
+    int removeAll(DataType data)
+    {
+        int count = 0;
+        for (int i = size - 1; i != -1; i--)
+            if (arr[i] == data) {
+                count++;
+                remove(i);
+            }
+
+        return count;
+    }
+
+    int contains(DataType dada)
+    {
+        int count = 0;
+        for (int i = 0; i < size; i++)
+            if (arr[i] == dada)
+                count++;
+
+        return count;
     }
 
     ~SeqList()
@@ -75,10 +116,10 @@ public:
 
     class iterator {
     private:
-        DadaType* cur;
+        DataType* cur;
 
     public:
-        iterator(DadaType* _cur) : cur(_cur) {}
+        iterator(DataType* _cur) : cur(_cur) {}
 
         iterator&operator++ ()
         {
@@ -116,7 +157,7 @@ public:
             return !(cur == iterator1.cur);
         }
 
-        DadaType operator* ()
+        DataType operator* ()
         {
             return *cur;
         }
