@@ -1,6 +1,9 @@
 #ifndef DEMO_SEQLIST_V0_2_H
 #define DEMO_SEQLIST_V0_2_H
 
+#include <iostream>
+#include <functional>
+
 template <typename DadaType>
 class SeqList {
 private:
