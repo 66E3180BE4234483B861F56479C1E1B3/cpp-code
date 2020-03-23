@@ -1,32 +1,22 @@
-#include "linkedListv1.0.h"
+#include "seqStack.h"
 #include "gtest/gtest.h"
 
 TEST(Suite1, Test1)
 {
     const int N = 7;
-    LinkedList<int> list;
+    Stack<int> stack;
 
     for (int i = 0; i < N; i++)
-        list.insert(i + 1);
-
-    int n = 0;
-    for (int d : list) {
-        n++;
-        EXPECT_EQ(d, n);
+        stack.push(i + 1);
+    
+    int n = N;
+    for (int i = 0; i < N; i++) {
+        EXPECT_EQ(stack.top(), n);
+        stack.pop();
+        n--;
     }
 
-    EXPECT_EQ(n, N);
-
-    for (int i = 0; i < 5; i++)
-        list.insert(i + 2, 3);
-
-    EXPECT_EQ(list.removeAll(3), list.contains(3));
-}
-
-template <typename T>
-void func(T n)
-{
-    std::cout << n << " ";
+    EXPECT_EQ(n, 0);
 }
 
 int main(int argc, char **argv) {
