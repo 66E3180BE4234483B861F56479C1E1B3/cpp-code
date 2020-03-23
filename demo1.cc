@@ -1,4 +1,4 @@
-#include "linkedListv0.1.h"
+#include "linkedListv1.0.h"
 #include "gtest/gtest.h"
 
 TEST(Suite1, Test1)
@@ -7,15 +7,20 @@ TEST(Suite1, Test1)
     LinkedList<int> list;
 
     for (int i = 0; i < N; i++)
-        list.insert( i + 1);
+        list.insert(i + 1);
 
-    int n = N;
+    int n = 0;
     for (int d : list) {
+        n++;
         EXPECT_EQ(d, n);
-        n--;
     }
 
-    EXPECT_EQ(n, 0);
+    EXPECT_EQ(n, N);
+
+    for (int i = 0; i < 5; i++)
+        list.insert(i + 2, 3);
+
+    EXPECT_EQ(list.removeAll(3), list.contains(3));
 }
 
 template <typename T>
