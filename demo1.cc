@@ -1,25 +1,21 @@
-#include <iostream>
-
-#include "seqListv1.0.h"
+#include "linkedListv0.1.h"
 #include "gtest/gtest.h"
 
 TEST(Suite1, Test1)
 {
     const int N = 7;
-    SeqList<int> list(N);
+    LinkedList<int> list;
 
     for (int i = 0; i < N; i++)
-        list.insert(i, i + 1);
+        list.insert( i + 1);
 
-    EXPECT_EQ(list.isEmpty(), false);
-
-    int n = 0;
-    for (int data : list) {
-        n++;
-        EXPECT_EQ(data, n);
+    int n = N;
+    for (int d : list) {
+        EXPECT_EQ(d, n);
+        n--;
     }
 
-    EXPECT_EQ(n, N);
+    EXPECT_EQ(n, 0);
 }
 
 template <typename T>
