@@ -1,30 +1,24 @@
-#include <iostream>
+#include "linkedStack.h"
+#include "gtest//gtest.h"
 
-#include "seqStack.h"
-
-bool match(const std::string& str)
+TEST(Suite1, Test1)
 {
-    Stack<char> stack(str.length());
-    for (int i = 0; i < str.length(); i++) {
-        if (str[i] == '{' || str[i] == '(' || str[i] == '[')
-            stack.push(str[i]);
+    Stack<int> stack;
+    const int N = 5;
+    for (int i = 0; i < N; i++)
+        stack.push(i + 1);
 
-        if (str[i] == '}' || str[i] == ')' || str[i] == ']') {
-            if (str[i] == '}' && stack.top() != '{' || str[i] == ')' && stack.top() != '('
-            || str[i] == ']' && stack.top() != '[')
-                return false;
-
-            stack.pop();
-        }
+    int n = N;
+    for (int i = 0; i < N; i++) {
+        EXPECT_EQ(stack.top(), n);
+        n--;
+        stack.pop();
     }
 
-    if (!stack.isEmpty())
-        return false;
-
-    return true;
+    EXPECT_EQ(n, 0);
 }
-int main() {
-    std::cout << (match("(){{([[]])()") == true ? "true" : "false") << std::endl;
 
-    return 0;
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
